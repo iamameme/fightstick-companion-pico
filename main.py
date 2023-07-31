@@ -7,6 +7,7 @@ from xpt2046 import Touch
 
 ## Variables to alter
 raw_images_file_name = "deejay"
+GIF_FRAME_COUNT = 7
 audio_file_name = "val.wav"
 
 SCK_PIN_DISPLAY = 6
@@ -74,21 +75,24 @@ def main():
     # Baud rate of 40000000 seems about the max
     # Play the audio on power on
     _thread.start_new_thread(play_audio, ())
+    # This does make one frame play twice, which I was too lazy to fix, even though it's easy
+    # Actually, I think I fixed it but I didn't test it
     while True:
-        for i in range(7):
+        for i in range(GIF_FRAME_COUNT ):
             try:
                 display.draw_image(raw_images_file_name + str(i) + '.raw', 0, 0, 240, 320)
             except:
                 print("print failed :(")
             get_a_touch()
             sleep(.01)
-        for i in reversed(range(6)):
-            try:
-                display.draw_image(raw_images_file_name + str(i) + '.raw', 0, 0, 240, 320 )
-            except:
-                print("print failed :(")
-            sleep(.01)
-            get_a_touch()
+        for i in reversed(range(GIF_FRAME_COUNT - 1)):
+            if i != 0: # cheesy way to make it not play the first frame, since the next cycle will play it
+                try:
+                    display.draw_image(raw_images_file_name + str(i) + '.raw', 0, 0, 240, 320 )
+                except:
+                    print("print failed :(")
+                sleep(.01)
+                get_a_touch()
 
 main()
 

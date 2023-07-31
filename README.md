@@ -50,6 +50,8 @@ Yes everything is from amazon; don't do the same. It's cheaper elsewhere and you
 - The audio runs into OSError: 84 sometimes (and 20), so some try/catch loops catch it
 	- This means that the audio will sometimes just stop, but it can be restarted
 	- If someone wants to fix this, please do 
+- Space is an issue, so I realized that 7 320x240 images and one wav file was the limit
+	- An aftermarket Pico with more storage will enable longer gifs / more audio files
 	
 # Code that I didn't write
 
